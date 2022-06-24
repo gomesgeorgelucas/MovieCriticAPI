@@ -1,5 +1,6 @@
 package org.george.moviecriticapi.domain.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -21,18 +22,32 @@ public class CommentModel {
     @Column(name = "id_comment")
     private Long commentId;
 
+    @JsonIgnore
     @ManyToOne
-    @JoinColumn(name = "id_movie")
+    @JoinTable(
+            name = "mc_movie_comment",
+            joinColumns = @JoinColumn(name="id_comment"),
+            inverseJoinColumns = @JoinColumn(name = "id_movie")
+    )
     private MovieModel commentMovie;
 
     @ManyToOne
-    @JoinColumn(name = "id_user")
+    @JoinTable(
+            name = "mc_user_comment",
+            joinColumns = @JoinColumn(name="id_comment"),
+            inverseJoinColumns = @JoinColumn(name = "id_user")
+    )
     private UserModel commentUser;
 
     @Column(name = "message_comment")
     private String commentMessage;
 
-    @OneToMany(mappedBy = "mc_comment")
+    @OneToMany
+    @JoinTable(
+            name = "mc_comment_to_comment_responses",
+            joinColumns = @JoinColumn(name="id_comment"),
+            inverseJoinColumns = @JoinColumn(name = "id_comment_response")
+    )
     private Collection<CommentResponseModel> commentResponses;
 
     @Column(name = "date_created_comment")

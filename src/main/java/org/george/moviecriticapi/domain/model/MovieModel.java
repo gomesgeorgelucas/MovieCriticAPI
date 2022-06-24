@@ -33,12 +33,23 @@ public class MovieModel {
     @Column(name = "country_movie")
     private String movieCountry;
 
-    @OneToMany(mappedBy = "mc_movie")
+    @OneToMany
+    @JoinTable(
+            name = "mc_movie_comment",
+            joinColumns = @JoinColumn(name="id_movie"),
+            inverseJoinColumns = @JoinColumn(name = "id_comment")
+    )
     private Collection<CommentModel> movieComments;
 
-    @OneToMany(mappedBy = "mc_movie")
+    @OneToMany
+    @JoinTable(
+            name = "mc_movie_rating",
+            joinColumns = @JoinColumn(name="id_movie"),
+            inverseJoinColumns = @JoinColumn(name = "id_rating")
+    )
     private Collection<RatingModel> movieRatings;
 
+    @Column(name = "average_rating_movie")
     private Double movieAverageRating;
 
     @Column(name = "date_created_comment")

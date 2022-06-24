@@ -1,9 +1,12 @@
 package org.george.moviecriticapi.domain.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.Fetch;
 
 import javax.persistence.*;
 import java.time.ZonedDateTime;
@@ -23,8 +26,13 @@ public class CommentResponseModel {
     @JoinColumn(name = "id_user")
     private UserModel commentResponseUser;
 
-    @ManyToOne
-    @JoinColumn(name = "id_comment")
+    @JsonIgnore
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "mc_comment_to_comment_responses",
+            joinColumns = @JoinColumn(name="id_comment_response"),
+            inverseJoinColumns = @JoinColumn(name = "id_comment")
+    )
     private CommentModel commentResponseComment;
 
     @Column(name = "message_comment_response")

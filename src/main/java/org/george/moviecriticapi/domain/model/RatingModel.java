@@ -1,5 +1,6 @@
 package org.george.moviecriticapi.domain.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -19,12 +20,21 @@ public class RatingModel {
     @Column(name = "id_rating")
     private Long ratingId;
 
+    @JsonIgnore
     @ManyToOne
-    @JoinColumn(name = "id_movie")
+    @JoinTable(
+            name = "mc_movie_rating",
+            joinColumns = @JoinColumn(name="id_rating"),
+            inverseJoinColumns = @JoinColumn(name = "id_movie")
+    )
     private MovieModel ratingMovie;
 
     @ManyToOne
-    @JoinColumn(name = "id_user")
+    @JoinTable(
+            name = "mc_user_rating",
+            joinColumns = @JoinColumn(name="id_movie"),
+            inverseJoinColumns = @JoinColumn(name = "id_user")
+    )
     private UserModel ratingUser;
 
     @Column(name = "score_rating")

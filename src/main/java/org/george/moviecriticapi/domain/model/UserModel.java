@@ -1,5 +1,6 @@
 package org.george.moviecriticapi.domain.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -30,13 +31,25 @@ public class UserModel {
     @Column(name = "score_user")
     private Long userScore;
 
-    @Column(name = "score_user")
+    @Column(name = "role_user")
     private UserRoleEnum userRole;
 
-    @OneToMany(mappedBy = "mc_user")
+    @JsonIgnore
+    @OneToMany
+    @JoinTable(
+            name = "mc_user_rating",
+            joinColumns = @JoinColumn(name="id_user"),
+            inverseJoinColumns = @JoinColumn(name = "id_rating")
+    )
     private Collection<RatingModel> userRatings;
 
-    @OneToMany(mappedBy = "mc_user")
+    @JsonIgnore
+    @OneToMany
+    @JoinTable(
+            name = "mc_user_comment",
+            joinColumns = @JoinColumn(name="id_user"),
+            inverseJoinColumns = @JoinColumn(name = "id_comment")
+    )
     private Collection<CommentModel> userComments;
 
     @Column(name = "date_created_user")
