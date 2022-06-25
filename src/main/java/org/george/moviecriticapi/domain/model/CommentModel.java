@@ -44,7 +44,7 @@ public class CommentModel {
 
     @OneToMany
     @JoinTable(
-            name = "mc_comment_to_comment_responses",
+            name = "mc_comment_to_comment_response",
             joinColumns = @JoinColumn(name="id_comment"),
             inverseJoinColumns = @JoinColumn(name = "id_comment_response")
     )
