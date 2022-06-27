@@ -8,6 +8,8 @@ import lombok.NoArgsConstructor;
 import org.george.moviecriticapi.domain.enums.UserRoleEnum;
 
 import javax.persistence.*;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
 import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -22,13 +24,17 @@ public class UserModel {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_user")
     private Long userId;
-    @Column(name = "name_user")
+    @Column(name = "name_user", nullable = false, unique = true)
+    @NotBlank
     private String userName;
-    @Column(name = "email_user")
+    @Column(name = "email_user", nullable = false, unique = true)
+    @NotBlank
     private String userEmail;
-    @Column(name = "password_user")
+    @Column(name = "password_user", nullable = false)
+    @NotBlank
     private String userPassword;
     @Column(name = "score_user")
+    @Min(0)
     private Long userScore;
 
     @Column(name = "role_user")
@@ -70,7 +76,7 @@ public class UserModel {
     )
     private Collection<ReactionModel> userReactions;
 
-    @Column(name = "date_created_user")
+    @Column(name = "date_created_user", updatable = false)
     private ZonedDateTime userCreated;
     @Column(name = "date_updated_user")
     private ZonedDateTime userUpdated;
