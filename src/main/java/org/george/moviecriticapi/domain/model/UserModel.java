@@ -52,6 +52,24 @@ public class UserModel {
     )
     private Collection<CommentModel> userComments;
 
+    @JsonIgnore
+    @OneToMany
+    @JoinTable(
+            name = "mc_user_comment_response",
+            joinColumns = @JoinColumn(name="id_user"),
+            inverseJoinColumns = @JoinColumn(name = "id_comment_response")
+    )
+    private Collection<CommentResponseModel> userCommentResponses;
+
+    @JsonIgnore
+    @OneToMany
+    @JoinTable(
+            name = "mc_reaction_user",
+            joinColumns = @JoinColumn(name="id_user"),
+            inverseJoinColumns = @JoinColumn(name = "id_reaction")
+    )
+    private Collection<ReactionModel> userReactions;
+
     @Column(name = "date_created_user")
     private ZonedDateTime userCreated;
     @Column(name = "date_updated_user")
@@ -66,6 +84,7 @@ public class UserModel {
 
         this.userComments = new ArrayList<>();
         this.userRatings = new ArrayList<>();
+        this.userReactions = new ArrayList<>();
     }
 
     @PreUpdate

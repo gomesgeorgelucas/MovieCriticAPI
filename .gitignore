@@ -36,3 +36,4 @@ build/
 log/
 target/
 /database.mv.db
+/database.trace.db

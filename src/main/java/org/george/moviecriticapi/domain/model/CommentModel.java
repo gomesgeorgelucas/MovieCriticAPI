@@ -42,6 +42,9 @@ public class CommentModel {
     @Column(name = "message_comment")
     private String commentMessage;
 
+    @Column(name = "is_comment_repeated")
+    private Boolean isCommentRepeated;
+
     @OneToMany
     @JoinTable(
             name = "mc_comment_to_comment_response",
@@ -49,6 +52,14 @@ public class CommentModel {
             inverseJoinColumns = @JoinColumn(name = "id_comment_response")
     )
     private Collection<CommentResponseModel> commentResponses;
+
+    @OneToMany
+    @JoinTable(
+            name = "mc_comment_reaction",
+            joinColumns = @JoinColumn(name="id_comment"),
+            inverseJoinColumns = @JoinColumn(name = "id_reaction")
+    )
+    private Collection<ReactionModel> commentReactions;
 
     @Column(name = "date_created_comment")
     private ZonedDateTime commentCreated;
@@ -60,6 +71,7 @@ public class CommentModel {
         this.commentCreated = ZonedDateTime.now();
 
         this.commentResponses = new ArrayList<>();
+        this.commentReactions = new ArrayList<>();
     }
 
     @PreUpdate

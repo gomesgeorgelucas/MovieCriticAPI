@@ -23,7 +23,11 @@ public class CommentResponseModel {
     private Long commentResponseId;
 
     @ManyToOne
-    @JoinColumn(name = "id_user")
+    @JoinTable(
+            name = "mc_user_comment_response",
+            joinColumns = @JoinColumn(name="id_comment_response"),
+            inverseJoinColumns = @JoinColumn(name = "id_user")
+    )
     private UserModel commentResponseUser;
 
     @JsonIgnore
