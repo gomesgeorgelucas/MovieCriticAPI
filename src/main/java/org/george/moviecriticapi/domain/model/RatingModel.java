@@ -7,7 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.time.ZonedDateTime;
+import java.time.Instant;
 
 @Data
 @Builder
@@ -41,17 +41,17 @@ public class RatingModel {
     private Double ratingScore;
 
     @Column(name = "date_created_rating")
-    private ZonedDateTime ratingCreated;
+    private Instant ratingCreated;
     @Column(name = "date_updated_rating")
-    private ZonedDateTime ratingUpdated;
+    private Instant ratingUpdated;
 
     @PrePersist
     protected void onCreate() {
-        this.ratingCreated = ZonedDateTime.now();
+        this.ratingCreated = Instant.now();
     }
 
     @PreUpdate
     protected void onUpdate() {
-        this.ratingUpdated = ZonedDateTime.now();
+        this.ratingUpdated = Instant.now();
     }
 }

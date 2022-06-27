@@ -7,7 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.time.ZonedDateTime;
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Collection;
 
@@ -62,13 +62,13 @@ public class CommentModel {
     private Collection<ReactionModel> commentReactions;
 
     @Column(name = "date_created_comment")
-    private ZonedDateTime commentCreated;
+    private Instant commentCreated;
     @Column(name = "date_updated_comment")
-    private ZonedDateTime commentUpdated;
+    private Instant commentUpdated;
 
     @PrePersist
     protected void onCreate() {
-        this.commentCreated = ZonedDateTime.now();
+        this.commentCreated = Instant.now();
 
         this.commentResponses = new ArrayList<>();
         this.commentReactions = new ArrayList<>();
@@ -76,6 +76,6 @@ public class CommentModel {
 
     @PreUpdate
     protected void onUpdate() {
-        this.commentUpdated = ZonedDateTime.now();
+        this.commentUpdated = Instant.now();
     }
 }

@@ -5,11 +5,9 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.Cascade;
-import org.hibernate.annotations.Fetch;
 
 import javax.persistence.*;
-import java.time.ZonedDateTime;
+import java.time.Instant;
 
 @Data
 @Builder
@@ -43,17 +41,17 @@ public class CommentResponseModel {
     private String commentResponseMessage;
 
     @Column(name = "date_created_comment_response")
-    private ZonedDateTime commentResponseCreated;
+    private Instant commentResponseCreated;
     @Column(name = "date_updated_comment_response")
-    private ZonedDateTime commentResponseUpdated;
+    private Instant commentResponseUpdated;
 
     @PrePersist
     protected void onCreate() {
-        this.commentResponseCreated = ZonedDateTime.now();
+        this.commentResponseCreated = Instant.now();
     }
 
     @PreUpdate
     protected void onUpdate() {
-        this.commentResponseUpdated = ZonedDateTime.now();
+        this.commentResponseUpdated = Instant.now();
     }
 }

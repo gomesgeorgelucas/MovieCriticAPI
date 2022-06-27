@@ -5,11 +5,9 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.george.moviecriticapi.domain.enums.UserRoleEnum;
 
 import javax.persistence.*;
-import java.time.ZonedDateTime;
-import java.util.ArrayList;
+import java.time.Instant;
 
 @Data
 @Builder
@@ -43,17 +41,17 @@ public class ReactionModel {
     private Boolean reactionStatus;
 
     @Column(name = "date_created_reaction")
-    private ZonedDateTime reactionCreated;
+    private Instant reactionCreated;
     @Column(name = "date_updated_reaction")
-    private ZonedDateTime reactionUpdated;
+    private Instant reactionUpdated;
 
     @PrePersist
     protected void onCreate() {
-        this.reactionCreated = ZonedDateTime.now();
+        this.reactionCreated = Instant.now();
     }
 
     @PreUpdate
     protected void onUpdate() {
-        this.reactionUpdated = ZonedDateTime.now();
+        this.reactionUpdated = Instant.now();
     }
 }

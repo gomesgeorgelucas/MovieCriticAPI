@@ -6,7 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.time.ZonedDateTime;
+import java.time.Instant;
 import java.util.Collection;
 
 @Data
@@ -53,17 +53,17 @@ public class MovieModel {
     private Double movieAverageRating;
 
     @Column(name = "date_created_comment")
-    private ZonedDateTime movieCreated;
+    private Instant movieCreated;
     @Column(name = "date_updated_comment")
-    private ZonedDateTime movieUpdated;
+    private Instant movieUpdated;
 
     @PrePersist
     protected void onCreate() {
-        this.movieCreated = ZonedDateTime.now();
+        this.movieCreated = Instant.now();
     }
 
     @PreUpdate
     protected void onUpdate() {
-        this.movieUpdated = ZonedDateTime.now();
+        this.movieUpdated = Instant.now();
     }
 }

@@ -10,7 +10,7 @@ import org.george.moviecriticapi.domain.enums.UserRoleEnum;
 import javax.persistence.*;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
-import java.time.ZonedDateTime;
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Collection;
 
@@ -77,13 +77,13 @@ public class UserModel {
     private Collection<ReactionModel> userReactions;
 
     @Column(name = "date_created_user", updatable = false)
-    private ZonedDateTime userCreated;
+    private Instant userCreated;
     @Column(name = "date_updated_user")
-    private ZonedDateTime userUpdated;
+    private Instant userUpdated;
 
     @PrePersist
     protected void onCreate() {
-        this.userCreated = ZonedDateTime.now();
+        this.userCreated = Instant.now();
 
         this.userScore = 0L;
         this.userRole = UserRoleEnum.READER;
@@ -95,6 +95,6 @@ public class UserModel {
 
     @PreUpdate
     protected void onUpdate() {
-        this.userUpdated = ZonedDateTime.now();
+        this.userUpdated = Instant.now();
     }
 }
