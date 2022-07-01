@@ -19,4 +19,9 @@ public class APIMessages {
             INVALID_REQUEST_MOVIE_NOT_FOUND_DSC = "The movie was not found on the server.";
     public static final String
             INVALID_REQUEST_MOVIE_TITLE_NOT_FOUND_DSC = "A movie with this title was not found on the server.";
+    public static final String
+            INVALID_REQUEST_USER_NOT_AUTH_DSC = "User not authenticated.";
+    public static final String
+            INVALID_JWT_TOKEN_DSC = "Invalid JWT Token";
+
 }

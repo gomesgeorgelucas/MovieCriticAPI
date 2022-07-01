@@ -6,11 +6,11 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
-@ConfigurationProperties("properties")
+@ConfigurationProperties("omdb")
 @Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class EnvPropertiesConfig {
+public class OMDBPropertiesConfig {
     private String apiKey;
 }

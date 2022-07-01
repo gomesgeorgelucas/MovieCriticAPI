@@ -2,7 +2,7 @@ package org.george.moviecriticapi.service;
 
 import lombok.AllArgsConstructor;
 import org.george.moviecriticapi.clients.MovieClient;
-import org.george.moviecriticapi.config.EnvPropertiesConfig;
+import org.george.moviecriticapi.config.OMDBPropertiesConfig;
 import org.george.moviecriticapi.domain.model.MovieModel;
 import org.george.moviecriticapi.exception.InvalidRequestException;
 import org.george.moviecriticapi.repository.MovieRepository;
@@ -15,7 +15,7 @@ import java.util.Collection;
 @Service
 @AllArgsConstructor
 public class MovieServiceImpl implements MovieService {
-    private final EnvPropertiesConfig properties;
+    private final OMDBPropertiesConfig properties;
 
     private final MovieRepository movieRepository;
 
