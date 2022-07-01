@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 import org.george.moviecriticapi.domain.enums.UserRoleEnum;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import java.time.Instant;
@@ -24,9 +25,10 @@ public class UserModel {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_user")
     private Long userId;
-    @Column(name = "name_user", nullable = false, unique = true)
+    @Column(name = "name_user", nullable = false)
     @NotBlank
     private String userName;
+    @Email
     @Column(name = "email_user", nullable = false, unique = true)
     @NotBlank
     private String userEmail;
