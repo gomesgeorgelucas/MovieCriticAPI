@@ -1,6 +1,7 @@
 package org.george.moviecriticapi.service;
 
 import lombok.AllArgsConstructor;
+import org.apache.catalina.User;
 import org.george.moviecriticapi.domain.enums.UserRoleEnum;
 import org.george.moviecriticapi.domain.model.UserModel;
 import org.george.moviecriticapi.exception.InvalidRequestException;
@@ -9,6 +10,7 @@ import org.george.moviecriticapi.service.interfaces.UserService;
 import org.george.moviecriticapi.utils.APIMessages;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.Collection;
 
 @Service
@@ -50,7 +52,33 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    @Transactional
     public UserModel updateUser(UserModel user) {
-        return null;
+        return userRepository.save(user);
+    }
+
+    @Override
+    public void setUserScore(UserModel user) {
+        updateUser(updateUserRole(updateScore(user)));
+    }
+
+    private UserModel updateUserRole(UserModel user) {
+        if (user.getUserScore() >= 20 && user.getUserScore() < 100) {
+            user.setUserRole(UserRoleEnum.BASIC);
+        } else if (user.getUserScore() >= 100 && user.getUserScore() < 1000) {
+            user.setUserRole(UserRoleEnum.ADVANCED);
+        } else if (user.getUserScore() >= 1000) {
+            user.setUserRole(UserRoleEnum.MODERATOR);
+        }
+
+        return user;
+    }
+
+    private UserModel updateScore(UserModel user) {
+        Long userScore = user.getUserScore();
+        userScore += 1;
+        user.setUserScore(userScore);
+
+        return user;
     }
 }

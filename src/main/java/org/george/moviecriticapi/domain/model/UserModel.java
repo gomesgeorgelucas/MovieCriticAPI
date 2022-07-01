@@ -43,39 +43,19 @@ public class UserModel {
     private UserRoleEnum userRole;
 
     @JsonIgnore
-    @OneToMany
-    @JoinTable(
-            name = "mc_user_rating",
-            joinColumns = @JoinColumn(name="id_user"),
-            inverseJoinColumns = @JoinColumn(name = "id_rating")
-    )
+    @OneToMany(targetEntity = UserModel.class, fetch = FetchType.EAGER)
     private Collection<RatingModel> userRatings;
 
     @JsonIgnore
     @OneToMany
-    @JoinTable(
-            name = "mc_user_comment",
-            joinColumns = @JoinColumn(name="id_user"),
-            inverseJoinColumns = @JoinColumn(name = "id_comment")
-    )
     private Collection<CommentModel> userComments;
 
     @JsonIgnore
     @OneToMany
-    @JoinTable(
-            name = "mc_user_comment_response",
-            joinColumns = @JoinColumn(name="id_user"),
-            inverseJoinColumns = @JoinColumn(name = "id_comment_response")
-    )
     private Collection<CommentResponseModel> userCommentResponses;
 
     @JsonIgnore
     @OneToMany
-    @JoinTable(
-            name = "mc_reaction_user",
-            joinColumns = @JoinColumn(name="id_user"),
-            inverseJoinColumns = @JoinColumn(name = "id_reaction")
-    )
     private Collection<ReactionModel> userReactions;
 
     @Column(name = "date_created_user", updatable = false)

@@ -20,21 +20,12 @@ public class RatingModel {
     @Column(name = "id_rating")
     private Long ratingId;
 
-    @JsonIgnore
-    @ManyToOne
-    @JoinTable(
-            name = "mc_movie_rating",
-            joinColumns = @JoinColumn(name="id_rating"),
-            inverseJoinColumns = @JoinColumn(name = "id_movie")
-    )
+    @ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
+    @JoinColumn(name = "id_movie")
     private MovieModel ratingMovie;
 
     @ManyToOne
-    @JoinTable(
-            name = "mc_user_rating",
-            joinColumns = @JoinColumn(name="id_movie"),
-            inverseJoinColumns = @JoinColumn(name = "id_user")
-    )
+    @JoinColumn(name = "id_user")
     private UserModel ratingUser;
 
     @Column(name = "score_rating")

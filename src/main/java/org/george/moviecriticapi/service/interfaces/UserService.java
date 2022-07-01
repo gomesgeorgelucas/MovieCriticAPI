@@ -11,4 +11,6 @@ public interface UserService {
     UserModel readUserById(Long id);
     UserModel readUserByEmail(String email);
     UserModel updateUser(UserModel user);
+
+    void setUserScore(UserModel user);
 }
