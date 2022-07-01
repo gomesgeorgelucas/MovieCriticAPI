@@ -46,6 +46,21 @@ public class GlobalExceptionHandler {
         );
     }
 
+    @ExceptionHandler(SecurityException.class)
+    public ResponseEntity<ExceptionError> handleSecurityException(
+            SecurityException e,
+            HttpServletRequest req) {
+
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(
+                ExceptionError.builder()
+                        .errorStatus(HttpStatus.BAD_REQUEST.toString())
+                        .errorMessage(APIMessages.BAD_REQUEST_MSG)
+                        .errorDescription(e.getMessage())
+                        .erroPath(req.getRequestURI())
+                        .build()
+        );
+    }
+
     @Data
     @Builder
     @AllArgsConstructor

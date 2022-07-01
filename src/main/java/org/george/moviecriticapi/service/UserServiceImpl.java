@@ -1,13 +1,17 @@
 package org.george.moviecriticapi.service;
 
+import com.auth0.jwt.JWT;
+import com.auth0.jwt.algorithms.Algorithm;
+import com.auth0.jwt.exceptions.SignatureVerificationException;
 import lombok.AllArgsConstructor;
-import org.apache.catalina.User;
+import org.george.moviecriticapi.config.JWTPropertiesConfig;
 import org.george.moviecriticapi.domain.enums.UserRoleEnum;
 import org.george.moviecriticapi.domain.model.UserModel;
 import org.george.moviecriticapi.exception.InvalidRequestException;
 import org.george.moviecriticapi.repository.UserRepository;
 import org.george.moviecriticapi.service.interfaces.UserService;
 import org.george.moviecriticapi.utils.APIMessages;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -17,6 +21,10 @@ import java.util.Collection;
 @AllArgsConstructor
 public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
+
+    private final PasswordEncoder encoder;
+
+    private final JWTPropertiesConfig properties;
 
     @Override
     public UserModel createUser(UserModel user) {
@@ -33,6 +41,8 @@ public class UserServiceImpl implements UserService {
             throw new InvalidRequestException(APIMessages.INVALID_REQUEST_INVALID_SCORE_DSC);
         }
 
+        user.setUserPassword(encoder.encode(user.getUserPassword()));
+
         return userRepository.save(user);
     }
     @Override
@@ -47,8 +57,23 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserModel readUserByEmail(String email) {
-        return null;
+    public UserModel readUserByEmail(String userEmail) {
+        return userRepository.findUserModelByUserEmail(userEmail).orElseThrow(
+                () -> new InvalidRequestException(APIMessages.INVALID_REQUEST_USER_NOT_FOUND_DSC)
+        );
+    }
+
+    @Override
+    public UserModel readUserByToken(String token) {
+        try {
+            String userEmail = JWT.require(Algorithm.HMAC512(properties.getTokenSecret()))
+                    .build()
+                    .verify(token)
+                    .getSubject();
+            return readUserByEmail(userEmail);
+        } catch (SignatureVerificationException e) {
+            throw new InvalidRequestException(APIMessages.INVALID_JWT_TOKEN_DSC);
+        }
     }
 
     @Override

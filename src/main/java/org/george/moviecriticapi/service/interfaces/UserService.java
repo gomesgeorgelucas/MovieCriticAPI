@@ -10,6 +10,7 @@ public interface UserService {
     Collection<UserModel> readAllUsers();
     UserModel readUserById(Long id);
     UserModel readUserByEmail(String email);
+    UserModel readUserByToken(String token);
     UserModel updateUser(UserModel user);
 
     void setUserScore(UserModel user);

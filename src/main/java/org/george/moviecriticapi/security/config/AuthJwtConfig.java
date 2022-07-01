@@ -29,7 +29,8 @@ public class AuthJwtConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable().authorizeRequests()
                 .antMatchers(HttpMethod.POST, "/login").permitAll()
-                .antMatchers(HttpMethod.POST, "/signUp").permitAll()
+                .antMatchers(HttpMethod.POST, "/v1/mcapi/user").permitAll()
+                .antMatchers(HttpMethod.POST, "/logout").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .addFilter(new JwtAuthFilter(authenticationManager(), properties))
