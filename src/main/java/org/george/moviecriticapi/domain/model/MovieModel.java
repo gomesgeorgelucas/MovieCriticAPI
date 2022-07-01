@@ -1,5 +1,6 @@
 package org.george.moviecriticapi.domain.model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -21,16 +22,22 @@ public class MovieModel {
     private Long movieId;
 
     @Column(name = "title_movie")
+    @JsonProperty(value = "Title")
     private String movieTitle;
     @Column(name = "year_movie")
+    @JsonProperty(value = "Year")
     private String movieYear;
     @Column(name = "genre_movie")
+    @JsonProperty(value = "Genre")
     private String movieGenre;
     @Column(name = "director_movie")
+    @JsonProperty(value = "Director")
     private String movieDirector;
     @Column(name = "writer_movie")
+    @JsonProperty(value = "Writer")
     private String movieWriter;
     @Column(name = "country_movie")
+    @JsonProperty(value = "Country")
     private String movieCountry;
 
     @OneToMany

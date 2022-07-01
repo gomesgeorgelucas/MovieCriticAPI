@@ -15,4 +15,8 @@ public class APIMessages {
     public static final String
             INVALID_REQUEST_INVALID_SCORE_DSC = "Invalid score (should be 0).";
 
+    public static final String
+            INVALID_REQUEST_MOVIE_NOT_FOUND_DSC = "The movie was not found on the server.";
+    public static final String
+            INVALID_REQUEST_MOVIE_TITLE_NOT_FOUND_DSC = "A movie with this title was not found on the server.";
 }

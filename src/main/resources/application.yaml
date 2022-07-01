@@ -16,8 +16,11 @@ spring:
     properties:
       hibernate:
         format_sql: true
+    open-in-view: true
   main:
     banner-mode: off
+  config:
+    import: optional:secrets.properties
 server:
   port: 8080
   error:
