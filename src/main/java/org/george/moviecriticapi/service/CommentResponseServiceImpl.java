@@ -7,6 +7,6 @@ import org.springframework.stereotype.Service;
 
 @Service
 @AllArgsConstructor
-public class CommentResponseImpl implements CommentResponseService {
+public class CommentResponseServiceImpl implements CommentResponseService {
     private final CommentResponseRepository commentResponseRepository;
 }
