@@ -1,7 +1,6 @@
 package org.george.moviecriticapi.service;
 
 import lombok.AllArgsConstructor;
-import org.george.moviecriticapi.domain.dto.RatingDTO;
 import org.george.moviecriticapi.domain.model.MovieModel;
 import org.george.moviecriticapi.domain.model.RatingModel;
 import org.george.moviecriticapi.domain.model.UserModel;
@@ -19,24 +18,25 @@ public class RatingServiceImpl implements RatingService {
     private final RatingRepository ratingRepository;
 
     @Override
-    public RatingModel createRating(RatingDTO ratingDTO) {
-        UserModel user = userService.readUserById(ratingDTO.getUserId());
-        MovieModel movie = movieService.readMovieById(ratingDTO.getMovieId());
+    public RatingModel createRating(String token, Long movieId, Double movieRating) {
+        UserModel user = userService.readUserByToken(token);
+        MovieModel movie = movieService.readMovieById(movieId);
 
         for (RatingModel rating : movie.getMovieRatings()) {
             if (Objects.equals(rating.getRatingUser().getUserId(), user.getUserId())) {
-                rating.setRatingScore(ratingDTO.getMovieRating());
-                return ratingRepository.save(rating);
+                rating.setRatingScore(movieRating);
+                RatingModel newRating = ratingRepository.save(rating); //DEBUG point
+                return newRating;
             }
         }
 
         userService.setUserScore(user);
-
-        return ratingRepository.save(RatingModel.builder()
+        RatingModel newRating = RatingModel.builder()
                 .ratingMovie(movie)
                 .ratingUser(user)
-                .ratingScore(ratingDTO.getMovieRating())
-                .build());
+                .ratingScore(movieRating)
+                .build();
+        return ratingRepository.save(newRating);
     }
 
 }

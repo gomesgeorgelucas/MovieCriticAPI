@@ -1,6 +1,7 @@
 package org.george.moviecriticapi.domain.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -34,12 +35,14 @@ public class UserModel {
     private String userEmail;
     @Column(name = "password_user", nullable = false)
     @NotBlank
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String userPassword;
     @Column(name = "score_user")
     @Min(0)
     private Long userScore;
 
     @Column(name = "role_user")
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private UserRoleEnum userRole;
 
     @JsonIgnore
@@ -47,15 +50,15 @@ public class UserModel {
     private Collection<RatingModel> userRatings;
 
     @JsonIgnore
-    @OneToMany
+    @OneToMany(mappedBy = "", targetEntity = UserModel.class)
     private Collection<CommentModel> userComments;
 
     @JsonIgnore
-    @OneToMany
+    @OneToMany(mappedBy = "", targetEntity = UserModel.class)
     private Collection<CommentResponseModel> userCommentResponses;
 
     @JsonIgnore
-    @OneToMany
+    @OneToMany(mappedBy = "", targetEntity = UserModel.class)
     private Collection<ReactionModel> userReactions;
 
     @Column(name = "date_created_user", updatable = false)

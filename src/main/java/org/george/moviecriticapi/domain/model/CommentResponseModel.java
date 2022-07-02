@@ -21,20 +21,12 @@ public class CommentResponseModel {
     private Long commentResponseId;
 
     @ManyToOne
-    @JoinTable(
-            name = "mc_user_comment_response",
-            joinColumns = @JoinColumn(name="id_comment_response"),
-            inverseJoinColumns = @JoinColumn(name = "id_user")
-    )
+    @JoinColumn(name = "id_user")
     private UserModel commentResponseUser;
 
     @JsonIgnore
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinTable(
-            name = "mc_comment_to_comment_response",
-            joinColumns = @JoinColumn(name="id_comment_response"),
-            inverseJoinColumns = @JoinColumn(name = "id_comment")
-    )
+    @JoinColumn(name = "id_comment")
     private CommentModel commentResponseComment;
 
     @Column(name = "message_comment_response")

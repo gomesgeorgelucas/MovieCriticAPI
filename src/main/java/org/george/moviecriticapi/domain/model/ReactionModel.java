@@ -21,20 +21,12 @@ public class ReactionModel {
     private Long reactionId;
 
     @ManyToOne
-    @JoinTable(
-            name = "mc_reaction_user",
-            joinColumns = @JoinColumn(name="id_reaction"),
-            inverseJoinColumns = @JoinColumn(name = "id_user")
-    )
+    @JoinColumn(name = "id_user")
     private UserModel reactionUser;
 
     @JsonIgnore
     @ManyToOne
-    @JoinTable(
-            name = "mc_comment_reaction",
-            joinColumns = @JoinColumn(name="id_reaction"),
-            inverseJoinColumns = @JoinColumn(name = "id_comment")
-    )
+    @JoinColumn(name = "id_comment")
     private CommentModel reactionComment;
 
     @Column(name = "status_reaction")

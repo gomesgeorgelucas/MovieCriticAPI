@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.time.Instant;
 
 @Data
@@ -21,14 +22,18 @@ public class RatingModel {
     private Long ratingId;
 
     @ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
-    @JoinColumn(name = "id_movie")
+    @JoinColumn(name = "id_movie", nullable = false)
+    @NotNull
+    @JsonIgnore
     private MovieModel ratingMovie;
 
     @ManyToOne
-    @JoinColumn(name = "id_user")
+    @JoinColumn(name = "id_user", nullable = false)
+    @NotNull
     private UserModel ratingUser;
 
-    @Column(name = "score_rating")
+    @Column(name = "score_rating",nullable = false)
+    @NotNull
     private Double ratingScore;
 
     @Column(name = "date_created_rating")

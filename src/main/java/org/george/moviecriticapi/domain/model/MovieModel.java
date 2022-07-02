@@ -40,20 +40,10 @@ public class MovieModel {
     @JsonProperty(value = "Country")
     private String movieCountry;
 
-    @OneToMany
-    @JoinTable(
-            name = "mc_movie_comment",
-            joinColumns = @JoinColumn(name="id_movie"),
-            inverseJoinColumns = @JoinColumn(name = "id_comment")
-    )
+    @OneToMany(mappedBy = "", targetEntity = MovieModel.class)
     private Collection<CommentModel> movieComments;
 
-    @OneToMany
-    @JoinTable(
-            name = "mc_movie_rating",
-            joinColumns = @JoinColumn(name="id_movie"),
-            inverseJoinColumns = @JoinColumn(name = "id_rating")
-    )
+    @OneToMany(mappedBy = "", targetEntity = MovieModel.class)
     private Collection<RatingModel> movieRatings;
 
     @Column(name = "average_rating_movie")

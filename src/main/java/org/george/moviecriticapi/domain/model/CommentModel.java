@@ -24,19 +24,11 @@ public class CommentModel {
 
     @JsonIgnore
     @ManyToOne
-    @JoinTable(
-            name = "mc_movie_comment",
-            joinColumns = @JoinColumn(name="id_comment"),
-            inverseJoinColumns = @JoinColumn(name = "id_movie")
-    )
+    @JoinColumn(name = "id_movie")
     private MovieModel commentMovie;
 
     @ManyToOne
-    @JoinTable(
-            name = "mc_user_comment",
-            joinColumns = @JoinColumn(name="id_comment"),
-            inverseJoinColumns = @JoinColumn(name = "id_user")
-    )
+    @JoinColumn(name = "id_user")
     private UserModel commentUser;
 
     @Column(name = "message_comment")
@@ -45,20 +37,10 @@ public class CommentModel {
     @Column(name = "is_comment_repeated")
     private Boolean isCommentRepeated;
 
-    @OneToMany
-    @JoinTable(
-            name = "mc_comment_to_comment_response",
-            joinColumns = @JoinColumn(name="id_comment"),
-            inverseJoinColumns = @JoinColumn(name = "id_comment_response")
-    )
+    @OneToMany(mappedBy = "", targetEntity = CommentModel.class)
     private Collection<CommentResponseModel> commentResponses;
 
-    @OneToMany
-    @JoinTable(
-            name = "mc_comment_reaction",
-            joinColumns = @JoinColumn(name="id_comment"),
-            inverseJoinColumns = @JoinColumn(name = "id_reaction")
-    )
+    @OneToMany(mappedBy = "", targetEntity = ReactionModel.class)
     private Collection<ReactionModel> commentReactions;
 
     @Column(name = "date_created_comment")

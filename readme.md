@@ -1,5 +1,44 @@
 ## CHALLENGE - Sistema de críticas de filmes
 
+### Instruções:
+
+A aplicação utiliza um banco de dados H2 em memória! 
+- A segurança está sendo realizada utilizando Spring Security
+- O endpoint /h2-console está liberado para consultar o schema do banco
+
+A chave de autenticação da API do OMDB está incluída em arquivo de propriedades.
+
+A aplicação possui integração com o OpenAPI e o endpoint /swagger-ui.html expõe um modelo
+dos endpoints disponíveis.
+
+É necessário acessar o endpoint de criação de criar usuários para criar o usuário.
+Em seguinda é necessário realizar o login por POST para obter TOKEN JWT
+Adicionar token como parâmetro da requisição GET poder realizar requisicões autenticadas. 
+
+```
+POST localhost:8080/v1/mcapi/user
+{
+  "userName": "basic",
+  "userEmail": "basic@email.com",
+  "userPassword": "basic",
+  "userScore": 0,
+  "userRole": "READER"
+}
+
+POST localhost:8080/login
+{
+    "userEmail": "basic@email.com",
+  "userPassword": "basic"
+}
+
+Movie
+GET localhost:8080/v1/mcapi/movie/by-title?movieTitle=godfather&token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJiYXNpY0BlbWFpbC5jb20iLCJleHAiOjE2NTY3MzQ3MDN9.sl2meAx4hPXO3sZ1pd0Jl9kZSJm-ODckvkLMblnjUx6bR2_hhJ8uhlMVTgi0lOrE2Sp4xYM9V6BT6lhLvZ6-9A
+
+Rating
+GET localhost:8080/v1/mcapi/rating?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJiYXNpY0BlbWFpbC5jb20iLCJleHAiOjE2NTY3MzMyMjl9.ezvOMYo6_6e1TfyhYuo8K_npOIxOhsAAgu9IvXnHEP-BpGt1qNfWMBUdH3YCqEFRYYzT9DjmZaMzQV-JYXaJyA&movieId=1&movieRating=1
+```
+
+
 ### PARTE 1 - Sistema e regras de negócio
 Portanto, crie um sistema que tenha a finalidade de receber e armazenar comentários e notas de um filme.
 
